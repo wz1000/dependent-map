@@ -151,7 +151,7 @@ import Data.GADT.Compare (GCompare, GEq, GOrdering(..), gcompare, geq)
 import Data.GADT.Show (GRead, GShow)
 import Data.Maybe (isJust)
 import Data.Some (Some, mkSome)
-import Data.Typeable ((:~:)(Refl))
+import Data.Typeable ((:~~:) (..))
 import Text.Read (Lexeme(Ident), lexP, parens, prec, readListPrec,
                   readListPrecDefault, readPrec)
 
@@ -1063,7 +1063,7 @@ fromAscListWithKey f xs
   combineEq' f z [] = [z]
   combineEq' f z@(kz :=> zz) (x@(kx :=> xx):xs') =
     case geq kx kz of
-        Just Refl   -> let yy = f kx xx zz in combineEq' f (kx :=> yy) xs'
+        Just HRefl   -> let yy = f kx xx zz in combineEq' f (kx :=> yy) xs'
         Nothing     -> z : combineEq' f x xs'
 
 
